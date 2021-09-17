@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option csharp_namespace = "Management.gRPC";
+
+// The Product service definition.
+service ProductService {
+  // Get Product 
+  rpc GetProducts (GetProductsRequest) returns (ReplyModel);
+  // Get Product By Id 
+  rpc GetProductById (GetProductByIdRequest) returns (ProductModel);
+  // Get Product By Name 
+  rpc GetProductsByName (GetProductsByNameRequest) returns (ReplyModel);
+  // Create Product
+  rpc CreateProduct (CreateProductRequest) returns (ProductModel);
+  // Update Product
+  rpc UpdateProduct (UpdateProductRequest) returns (ProductModel);
+  // Delete Product
+  rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
+
+}
+
+// The request message containing the user's name.
+message GetProductsRequest {
+
+}
+message GetProductByIdRequest {
+	int32 Id = 1;
+}
+message GetProductsByNameRequest {
+	string productName = 1;
+}
+message CreateProductRequest {
+	ProductModel product = 1;
+}
+message UpdateProductRequest {
+	ProductModel product = 1;
+}
+message DeleteProductRequest {
+	int32 id = 1;
+}
+message ProductModel {
+	int32 Id = 1;
+	string Name = 2;
+	string Category = 3;
+	string Description = 4;
+	double Price = 5;
+}
+
+message ReplyModel {
+  repeated ProductModel product = 1;
+}
+
+message  DeleteProductResponse {
+	bool success = 1;
+}

@@ -1,0 +1,49 @@
+﻿@page "/prod_management/"
+@using CMS.BlazorServer.Data
+@using CMS.BlazorServer.Models
+
+@inject ProductService productService
+@inject NavigationManager NavigationManager
+
+<h1>Product Management</h1>
+
+<button class="btn btn-primary"><a class="text-white" href="@($"prod_management/create")">Create</a></button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Category</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td><a href="@($"prod_management/update/{product.Id}")">Update</a></td>
+                <td><input type="button" value="Delete" @onclick="() => DeleteProduct(product.Id)" /></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<ProductViewModel> Products = new List<ProductViewModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products = await Task.Run(() => productService.GetProducts());
+    }
+
+    protected void DeleteProduct(int id)
+    {
+        productService.DeleteProduct(id);
+        NavigationManager.NavigateTo("prod_management", true);
+    }
+}

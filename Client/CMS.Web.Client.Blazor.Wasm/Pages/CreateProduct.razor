@@ -1,0 +1,62 @@
+﻿@page "/create-product"
+
+@using Microsoft.AspNetCore.SignalR.Client;
+@using Domain.Entities
+
+@inject NavigationManager NavigationManager
+
+<h1 class="bg-info text-white">Create Ordering</h1>
+
+<EditForm Model="productCreate" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Product Name</label>
+        <ValidationMessage For="@(() => productCreate.Name)" />
+        <InputText class="form-control" @bind-Value="productCreate.Name" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <ValidationMessage For="@(() => productCreate.Description)" />
+        <InputText class="form-control" @bind-Value="productCreate.Description" />
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <ValidationMessage For="@(() => productCreate.Category)" />
+        <InputText class="form-control" @bind-Value="productCreate.Category" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <ValidationMessage For="@(() => productCreate.Price)" />
+        <InputNumber class="form-control" @bind-Value="productCreate.Price" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Click</button>
+    </div>
+</EditForm>
+
+@code {
+    private HubConnection _hubConnection;
+
+    public Product productCreate = new Product();
+
+
+    public async Task HandleValidSubmit()
+    {
+        await StartHubConnection();
+        await _hubConnection.SendAsync("CreateProduct", productCreate);
+        NavigationManager.NavigateTo("/");
+    }
+
+    private async Task StartHubConnection()
+    {
+        _hubConnection = new HubConnectionBuilder()
+                        .WithUrl("http://localhost:4300/TransferHub")
+                        .Build();
+
+        await _hubConnection.StartAsync();
+        if (_hubConnection.State == HubConnectionState.Connected)
+            Console.WriteLine("connection started");
+    }
+}

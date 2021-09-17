@@ -1,0 +1,38 @@
+﻿@model List<CMS.WebApplication.Models.ProductViewModel>
+@{
+    ViewData["Title"] = "Product Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Role Manager</h1>
+<button class="btn btn-info">
+    <a class="text-light" asp-area="" asp-controller="ProductManagement" asp-action="Create">Add New Product</a>
+</button>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+        <tr>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Category</td>
+            <td>@product.Description</td>
+            <td>@product.Price</td>
+            <td>
+                @Html.ActionLink("Update", "Update", "ProductManagement", new { id = product.Id })
+                @Html.ActionLink("Delete", "Delete", "ProductManagement", new { id = product.Id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

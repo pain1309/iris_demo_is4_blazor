@@ -1,0 +1,32 @@
+﻿@page "/"
+
+<h1>Product Management</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in @ExchangedData)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Category</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>
+                    <input type="button" class="btn btn-primary" @onclick="() => DeleteProduct(product.Id)" value="Delete" />
+                    @*@Html.ActionLink("Update", "Update", "Product", new { id = product.Id })
+                    Html.ActionLink("Delete", "Delete", "Product", new { id = product.Id })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
