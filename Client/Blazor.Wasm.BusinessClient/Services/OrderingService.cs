@@ -29,7 +29,7 @@ namespace Blazor.Wasm.BusinessClient.Services
         public async Task<IEnumerable<Ordering>> GetOrderByUserName(string userName)
         {
             string path = $"/Ordering/GetOrderByUserName/{userName}";
-            return await httpClient.GetFromJsonAsync<IEnumerable<Ordering>>(path);
+            return (await httpClient.GetFromJsonAsync<OrderingResponse>(path)).Ordering;
         }
 
         public async Task<IEnumerable<ProductViewModel>> GetProductByName(string productName)

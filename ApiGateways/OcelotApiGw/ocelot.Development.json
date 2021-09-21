@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "5001"
+          "Port": "5013"
         }
       ],
       "UpstreamPathTemplate": "/Ordering/GetProduct/{productName}",
@@ -18,7 +18,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "5001"
+          "Port": "5013"
         }
       ],
       "UpstreamPathTemplate": "/Ordering/GetOrderByUserName/{userName}",
@@ -30,7 +30,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "5001"
+          "Port": "5013"
         }
       ],
       "UpstreamPathTemplate": "/Ordering",
@@ -42,7 +42,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "5001"
+          "Port": "5013"
         }
       ],
       "UpstreamPathTemplate": "/Get/Products/",

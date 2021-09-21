@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option csharp_namespace = "Blazor.Wasm.gRPCClient";
+
+
+package routeguide;
+
+// The Ordering service definition.
+service OrderingService {
+  // Get Product 
+  rpc GetProducts (GetProductRequest) returns (ReplyModel);
+
+  rpc CreateOrder (OrderingRequest) returns (OrderingReply);
+
+  rpc GetOrderByUserName (OrderByUserNameRequest) returns (OrderingReply);
+}
+
+// The request message containing the user's name.
+message GetProductRequest {
+	string productName = 1;
+}
+
+// The request message containing the user's name.
+message OrderByUserNameRequest {
+  string userName = 1;
+}
+
+message ReplyModel {
+  repeated ProductModel product = 1;
+}
+
+message ProductModel {
+	int32 Id = 1;
+	string Name = 2;
+	string Category = 3;
+	string Description = 4;
+	double Price = 5;
+}
+
+
+message OrderingReply {
+  repeated Ordering ordering = 1;
+}
+
+message OrderingRequest {
+	string UserName = 1;
+    double TotalPrice = 2;
+    string FirstName = 3;
+    string LastName = 4;
+    string EmailAddress = 5;
+    string Country = 6;
+    string ZipCode = 7;
+    string CardName = 8;
+    string CardNumber = 9;
+    string Expiration = 10;
+    string CVV = 11;
+    int32 PaymentMethod = 12;
+}
+
+message Ordering {
+	string UserName = 1;
+    double TotalPrice = 2;
+    string FirstName = 3;
+    string LastName = 4;
+    string EmailAddress = 5;
+    string Country = 6;
+    string ZipCode = 7;
+    string CardName = 8;
+    string CardNumber = 9;
+    string Expiration = 10;
+    string CVV = 11;
+    int32 PaymentMethod = 12;
+}

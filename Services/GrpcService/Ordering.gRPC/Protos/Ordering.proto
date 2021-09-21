@@ -1,18 +1,18 @@
 syntax = "proto3";
 
-option csharp_namespace = "Ordering.gRPC";
+option csharp_namespace = "Ordering.gRPCServer";
 
- // import "Protos/google/api/annotations.proto";
+package routeguide;
+
+ import "Protos/google/api/annotations.proto";
 
 // The Ordering service definition.
 service OrderingService {
-  // Get Product 
-  // rpc GetProducts (GetProductRequest) returns (ReplyModel) {
-	//option (google.api.http) = {
-	//	get: "/getproducts/{productName}"
-	//};
-  //}
-  rpc GetProducts (GetProductRequest) returns (ReplyModel);
+  rpc GetProducts (GetProductRequest) returns (ReplyModel) {
+  option (google.api.http) = {
+		get: "/getproducts/{productName}"
+	};
+  }
 }
 
 // The request message containing the user's name.

@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+option csharp_namespace = "Ordering.gRPCClient";
+
+package routeguide;
+
+ import "Protos/google/api/annotations.proto";
+
+// The Ordering service definition.
+service OrderingService {
+  // Get Product 
+  rpc GetProducts (GetProductRequest) returns (ReplyModel) {
+	option (google.api.http) = {
+		get: "/getproducts/{productName}"
+	};
+  }
+
+  rpc CreateOrder (OrderingRequest) returns (OrderingReply) {
+	option (google.api.http) = {
+      post: "/api/Order",
+      body: "*"
+    };
+  };
+
+  rpc GetOrderByUserName (OrderByUserNameRequest) returns (OrderingReply) {
+	option (google.api.http) = {
+      get: "/api/Order/GetOrderByUserName/{userName}"
+    };
+  };
+
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+	option (google.api.http) = {
+      get: "/client/sayhello/{name}"
+    };
+  };
+}
+
+// The request message containing the user's name.
+message GetProductRequest {
+	string productName = 1;
+}
+
+// The request message containing the user's name.
+message OrderByUserNameRequest {
+  string userName = 1;
+}
+
+message ReplyModel {
+  repeated ProductModel product = 1;
+}
+
+message ProductModel {
+	int32 Id = 1;
+	string Name = 2;
+	string Category = 3;
+	string Description = 4;
+	double Price = 5;
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+
+message OrderingReply {
+  repeated Ordering ordering = 1;
+}
+
+message OrderingRequest {
+	string UserName = 1;
+    double TotalPrice = 2;
+    string FirstName = 3;
+    string LastName = 4;
+    string EmailAddress = 5;
+    string Country = 6;
+    string ZipCode = 7;
+    string CardName = 8;
+    string CardNumber = 9;
+    string Expiration = 10;
+    string CVV = 11;
+    int32 PaymentMethod = 12;
+}
+
+message Ordering {
+	string UserName = 1;
+    double TotalPrice = 2;
+    string FirstName = 3;
+    string LastName = 4;
+    string EmailAddress = 5;
+    string Country = 6;
+    string ZipCode = 7;
+    string CardName = 8;
+    string CardNumber = 9;
+    string Expiration = 10;
+    string CVV = 11;
+    int32 PaymentMethod = 12;
+}

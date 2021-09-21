@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blazor.Wasm.BusinessClient.Models
+namespace Blazor.Wasm.gRPCClient.Models
 {
     public class Ordering
     {
@@ -24,7 +24,6 @@ namespace Blazor.Wasm.BusinessClient.Models
         public string CVV { get; set; }
         public int PaymentMethod { get; set; }
     }
-
     public class OrderingResponse
     {
         public IEnumerable<Ordering> Ordering { get; set; }

@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
-using static Ordering.gRPC.OrderingService;
+using static Ordering.gRPCServer.OrderingService;
 using System.Threading.Tasks;
 using Ordering.gRPC.Repositories.Interfaces;
 using System.Collections.Generic;
 using Grpc.Core;
+using Ordering.gRPCServer;
 
 namespace Ordering.gRPC.Services
 {
@@ -20,7 +21,7 @@ namespace Ordering.gRPC.Services
             _productRepository = productRepository;
         }
 
-        public override async Task<ReplyModel> GetProducts(Ordering.gRPC.GetProductRequest request, ServerCallContext context)
+        public override async Task<ReplyModel> GetProducts(Ordering.gRPCServer.GetProductRequest request, ServerCallContext context)
         {
             var products = await _productRepository.GetProductsByName(request.ProductName);
 

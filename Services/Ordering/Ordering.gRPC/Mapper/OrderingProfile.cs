@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using Ordering.gRPCServer;
+using Ordering.gRPC;
+using Ordering.gRPCClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,9 @@ namespace Ordering.gRPC.Mapper
     {
         public OrderingProfile()
         {
-            CreateMap<Ordering.gRPC.Entities.Product, ProductModel>();
-            CreateMap<Product, Ordering.gRPC.Entities.Product>();
+            CreateMap<Order, Ordering.gRPCClient.Ordering>().ReverseMap();
+            CreateMap<OrderingRequest, Order>().ReverseMap();
+            CreateMap<OrderingRequest, OrderingReply>().ReverseMap();
         }
     }
 }
