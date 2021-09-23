@@ -38,7 +38,7 @@ namespace Ordering.gRPC
             var createOrderingRequest = new GetProductRequest { ProductName = request.ProductName };
             //var replyModel = await _orderingServiceClient.GetProductsAsync(createOrderingRequest);
             var channel = GrpcChannel.ForAddress("https://localhost:5005");
-            var client = new OrderingService.OrderingServiceClient(channel);
+            var client = new OrderingServiceClient(channel);
             var response = await client.GetProductsAsync(createOrderingRequest);
             
             return response;

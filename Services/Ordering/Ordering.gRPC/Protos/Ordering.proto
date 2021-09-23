@@ -72,18 +72,18 @@ message OrderingReply {
 }
 
 message OrderingRequest {
-	string UserName = 1;
-    double TotalPrice = 2;
-    string FirstName = 3;
-    string LastName = 4;
-    string EmailAddress = 5;
-    string Country = 6;
-    string ZipCode = 7;
-    string CardName = 8;
-    string CardNumber = 9;
-    string Expiration = 10;
-    string CVV = 11;
-    int32 PaymentMethod = 12;
+	string userName = 1;
+    double totalPrice = 2;
+    string firstName = 3;
+    string lastName = 4;
+    string emailAddress = 5;
+    string country = 6;
+    string zipCode = 7;
+    string cardName = 8;
+    string cardNumber = 9;
+    string expiration = 10;
+    string cvv = 11;
+    int32 paymentMethod = 12;
 }
 
 message Ordering {
