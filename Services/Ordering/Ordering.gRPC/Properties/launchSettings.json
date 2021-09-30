@@ -4,12 +4,18 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "externalUrlConfiguration": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",
+      "externalUrlConfiguration": true,
       "applicationUrl": "http://localhost:5001"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true
     }
   }
 }

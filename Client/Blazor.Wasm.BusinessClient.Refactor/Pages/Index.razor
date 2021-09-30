@@ -1,0 +1,52 @@
+﻿@page "/"
+
+@using Blazor.Wasm.BusinessClient.Refactor.Models
+@using Syncfusion.Blazor.Grids
+@using Blazor.Wasm.BusinessClient.Refactor.Services
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
+
+@{
+    var UserName = new string[] { "UserName" };
+}
+<AuthorizeView>
+    <Authorized>
+        <SfGrid DataSource="@Orderings">
+            <input type="text" @oninput="(EventArgs) => { SetValue(EventArgs.Value.ToString()); }" placeholder="user name" />
+            <SfButton @ref="ToggleBtn" @onclick="searchOrdering" CssClass="e-flat" IsToggle="true" IsPrimary="true" Content="Search"></SfButton>
+            <GridColumns>
+                <GridColumn Field=@nameof(Ordering.UserName) HeaderText="User Name"></GridColumn>
+                <GridColumn Field=@nameof(Ordering.FirstName) HeaderText="First Name"></GridColumn>
+                <GridColumn Field=@nameof(Ordering.LastName) HeaderText=" Last Name"></GridColumn>
+                <GridColumn Field=@nameof(Ordering.PaymentMethod) HeaderText="Payment Method"></GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </Authorized>
+    <Authorizing>
+        <h1>Loading ...</h1>
+    </Authorizing>
+</AuthorizeView>
+
+@code {
+    public List<Ordering> Orderings { get; set; }
+    SfButton ToggleBtn;
+
+    [Inject]
+    public IOrderingService OrderingService { get; set; }
+    string UserName = "initital_search";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Orderings = (await OrderingService.GetOrderByUserName(UserName)).ToList();
+    }
+
+    private void SetValue(string Value)
+    {
+        UserName = Value;
+    }
+
+    private async Task searchOrdering(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
+    {
+        Orderings = (await OrderingService.GetOrderByUserName(UserName)).ToList();
+    }
+}

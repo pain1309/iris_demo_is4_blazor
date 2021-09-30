@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @using Blazor.Wasm.BusinessClient.Models
 @using Syncfusion.Blazor.Grids
 @using Blazor.Wasm.BusinessClient.Services
@@ -8,16 +9,20 @@
 @{
     var UserName = new string[] { "UserName" };
 }
-<SfGrid DataSource="@Orderings">
-    <input type="text" @oninput="(EventArgs) => { SetValue(EventArgs.Value.ToString()); }" placeholder="user name" />
-    <SfButton @ref="ToggleBtn" @onclick="searchOrdering" CssClass="e-flat" IsToggle="true" IsPrimary="true" Content="Search"></SfButton>
-    <GridColumns>
-        <GridColumn Field=@nameof(Ordering.UserName) HeaderText="User Name"></GridColumn>
-        <GridColumn Field=@nameof(Ordering.FirstName) HeaderText="First Name"></GridColumn>
-        <GridColumn Field=@nameof(Ordering.LastName) HeaderText=" Last Name"></GridColumn>
-        <GridColumn Field=@nameof(Ordering.PaymentMethod) HeaderText="Payment Method"></GridColumn>
-    </GridColumns>
-</SfGrid>
+<AuthorizeView>
+    <Authorized>
+        <SfGrid DataSource="@Orderings">
+            <input type="text" @oninput="(EventArgs) => { SetValue(EventArgs.Value.ToString()); }" placeholder="user name" />
+            <SfButton @ref="ToggleBtn" @onclick="searchOrdering" CssClass="e-flat" IsToggle="true" IsPrimary="true" Content="Search"></SfButton>
+            <GridColumns>
+                <GridColumn Field=@nameof(Ordering.UserName) HeaderText="User Name"></GridColumn>
+                <GridColumn Field=@nameof(Ordering.FirstName) HeaderText="First Name"></GridColumn>
+                <GridColumn Field=@nameof(Ordering.LastName) HeaderText=" Last Name"></GridColumn>
+                <GridColumn Field=@nameof(Ordering.PaymentMethod) HeaderText="Payment Method"></GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </Authorized>
+</AuthorizeView>
 
 @code {
     public List<Ordering> Orderings { get; set; }

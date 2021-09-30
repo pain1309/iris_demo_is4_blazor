@@ -6,9 +6,12 @@ using Ordering.gRPC.Repositories.Interfaces;
 using System.Collections.Generic;
 using Grpc.Core;
 using Ordering.gRPCServer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ordering.gRPC.Services
 {
+    [Authorize]
+    //[Authorize(Roles = "Admin")]
     public class OrderingService : OrderingServiceBase
     {
         private readonly ILogger<OrderingService> _logger;

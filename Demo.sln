@@ -33,9 +33,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Wasm.BusinessClient"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS.Web.Client.Blazor.Wasm", "Client\CMS.Web.Client.Blazor.Wasm\CMS.Web.Client.Blazor.Wasm.csproj", "{059B5658-5C66-4A61-9EE8-C4653810E001}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.gRPC", "Services\Ordering\Ordering.gRPC\Ordering.gRPC.csproj", "{84C3A712-EB41-4882-BDC1-B4B765D23068}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.gRPC.stub", "Services\Ordering\Ordering.gRPC\Ordering.gRPC.stub.csproj", "{84C3A712-EB41-4882-BDC1-B4B765D23068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Wasm.gRPCClient", "Client\Blazor.Wasm.gRPCClient\Blazor.Wasm.gRPCClient.csproj", "{5D5B93DC-32F3-4071-B1EC-266D5F9A094B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Wasm.gRPCClient", "Client\Blazor.Wasm.gRPCClient\Blazor.Wasm.gRPCClient.csproj", "{5D5B93DC-32F3-4071-B1EC-266D5F9A094B}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{002F02F2-CBA6-4208-9747-6EF5A7D3BB4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthServer", "AuthServer", "{52FFD853-2652-4C53-AA4A-D117F1274A14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Infrastructure", "AuthServer\AuthServer.Infrastructure\AuthServer.Infrastructure.csproj", "{811FD2FF-B635-47C8-A19A-EF425E6DB3D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "AuthServer\Shared\Shared.csproj", "{8DBF13C5-CC95-4BA2-8C7C-93931A56CFED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Wasm.BusinessClient.Refactor", "Client\Blazor.Wasm.BusinessClient.Refactor\Blazor.Wasm.BusinessClient.Refactor.csproj", "{A1BBBA15-D25E-4727-845B-6779AB766B3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Wasm.BusinessClient.IndividualUserAccounts", "Client\Blazor.Wasm.BusinessClient.IndividualUserAccounts\Blazor.Wasm.BusinessClient.IndividualUserAccounts.csproj", "{BC12E86B-F02A-44A6-BFAA-15BBCBD43322}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Wasm.BusinessClient.IndividualUserAccounts2", "Client\Blazor.Wasm.BusinessClient.IndividualUserAccounts2\Blazor.Wasm.BusinessClient.IndividualUserAccounts2.csproj", "{1FF86463-5129-4CC3-BEF6-DE5BD3EFF5EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer2", "AuthServer\IdentityServer2\IdentityServer2.csproj", "{D41813D0-4B8C-4139-8F96-AF3D843DE102}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Wasm.BusinessClient.IndividualUserAccounts3", "Client\Blazor.Wasm.BusinessClient.IndividualUserAccounts3\Blazor.Wasm.BusinessClient.IndividualUserAccounts3.csproj", "{9E9DC1EB-9263-4A72-9511-9B928811AA14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "AuthServer\IdentityServer\IdentityServer.csproj", "{A7B45B92-8535-4891-9169-69CA439B1A86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +107,42 @@ Global
 		{5D5B93DC-32F3-4071-B1EC-266D5F9A094B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D5B93DC-32F3-4071-B1EC-266D5F9A094B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D5B93DC-32F3-4071-B1EC-266D5F9A094B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{002F02F2-CBA6-4208-9747-6EF5A7D3BB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{002F02F2-CBA6-4208-9747-6EF5A7D3BB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{002F02F2-CBA6-4208-9747-6EF5A7D3BB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{002F02F2-CBA6-4208-9747-6EF5A7D3BB4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811FD2FF-B635-47C8-A19A-EF425E6DB3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811FD2FF-B635-47C8-A19A-EF425E6DB3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811FD2FF-B635-47C8-A19A-EF425E6DB3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811FD2FF-B635-47C8-A19A-EF425E6DB3D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DBF13C5-CC95-4BA2-8C7C-93931A56CFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DBF13C5-CC95-4BA2-8C7C-93931A56CFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DBF13C5-CC95-4BA2-8C7C-93931A56CFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DBF13C5-CC95-4BA2-8C7C-93931A56CFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1BBBA15-D25E-4727-845B-6779AB766B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BBBA15-D25E-4727-845B-6779AB766B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BBBA15-D25E-4727-845B-6779AB766B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BBBA15-D25E-4727-845B-6779AB766B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC12E86B-F02A-44A6-BFAA-15BBCBD43322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC12E86B-F02A-44A6-BFAA-15BBCBD43322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC12E86B-F02A-44A6-BFAA-15BBCBD43322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC12E86B-F02A-44A6-BFAA-15BBCBD43322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF86463-5129-4CC3-BEF6-DE5BD3EFF5EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF86463-5129-4CC3-BEF6-DE5BD3EFF5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF86463-5129-4CC3-BEF6-DE5BD3EFF5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF86463-5129-4CC3-BEF6-DE5BD3EFF5EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41813D0-4B8C-4139-8F96-AF3D843DE102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41813D0-4B8C-4139-8F96-AF3D843DE102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41813D0-4B8C-4139-8F96-AF3D843DE102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41813D0-4B8C-4139-8F96-AF3D843DE102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E9DC1EB-9263-4A72-9511-9B928811AA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E9DC1EB-9263-4A72-9511-9B928811AA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E9DC1EB-9263-4A72-9511-9B928811AA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E9DC1EB-9263-4A72-9511-9B928811AA14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B45B92-8535-4891-9169-69CA439B1A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B45B92-8535-4891-9169-69CA439B1A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B45B92-8535-4891-9169-69CA439B1A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B45B92-8535-4891-9169-69CA439B1A86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +162,14 @@ Global
 		{059B5658-5C66-4A61-9EE8-C4653810E001} = {13C0327A-E734-4DC8-B388-24C32C5B36A5}
 		{84C3A712-EB41-4882-BDC1-B4B765D23068} = {E0CF3277-ABDF-485C-8907-03DB2EDC9A8B}
 		{5D5B93DC-32F3-4071-B1EC-266D5F9A094B} = {13C0327A-E734-4DC8-B388-24C32C5B36A5}
+		{811FD2FF-B635-47C8-A19A-EF425E6DB3D3} = {52FFD853-2652-4C53-AA4A-D117F1274A14}
+		{8DBF13C5-CC95-4BA2-8C7C-93931A56CFED} = {52FFD853-2652-4C53-AA4A-D117F1274A14}
+		{A1BBBA15-D25E-4727-845B-6779AB766B3C} = {13C0327A-E734-4DC8-B388-24C32C5B36A5}
+		{BC12E86B-F02A-44A6-BFAA-15BBCBD43322} = {13C0327A-E734-4DC8-B388-24C32C5B36A5}
+		{1FF86463-5129-4CC3-BEF6-DE5BD3EFF5EF} = {13C0327A-E734-4DC8-B388-24C32C5B36A5}
+		{D41813D0-4B8C-4139-8F96-AF3D843DE102} = {52FFD853-2652-4C53-AA4A-D117F1274A14}
+		{9E9DC1EB-9263-4A72-9511-9B928811AA14} = {13C0327A-E734-4DC8-B388-24C32C5B36A5}
+		{A7B45B92-8535-4891-9169-69CA439B1A86} = {52FFD853-2652-4C53-AA4A-D117F1274A14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2E40E85-42D7-41BB-966F-F3CF7E832B2D}

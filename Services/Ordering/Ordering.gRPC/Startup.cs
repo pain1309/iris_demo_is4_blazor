@@ -4,9 +4,11 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -28,8 +30,8 @@ namespace Ordering.gRPC
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddGrpcClient<OrderingServiceClient>(
-            //    o => o.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]));
+            services.AddGrpcClient<OrderingServiceClient>(
+                o => o.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]));
             services.AddInfrastructureServices(Configuration);
             services.AddAutoMapper(typeof(Startup));
             services.AddGrpc();
@@ -40,6 +42,27 @@ namespace Ordering.gRPC
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
             services.AddGrpcSwagger();
+
+            services.AddAuthorization();
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer(o =>
+                {
+                    o.Authority = "https://localhost:5000";
+                    o.RequireHttpsMetadata = false;
+                    o.Audience = "configServiceResource";
+                    o.TokenValidationParameters =
+                    new TokenValidationParameters
+                    {
+                        RoleClaimType = "role",
+                    };
+                });
+            services.AddCors(o => o.AddPolicy("AllowAll", builder => {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +72,10 @@ namespace Ordering.gRPC
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -57,6 +84,10 @@ namespace Ordering.gRPC
             });
 
             app.UseRouting();
+            app.UseCors("AllowAll");
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

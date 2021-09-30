@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  redisdb:
+    image: redis:alpine
+
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGw/Dockerfile
+
+  cms.blazorserver:
+    image: ${DOCKER_REGISTRY-}cmsblazorserver
+    build:
+      context: .
+      dockerfile: Services/CMS.WebApplication/CMS.BlazorServer/Dockerfile
+
+
+  management.grpc:
+    image: ${DOCKER_REGISTRY-}managementgrpc
+    build:
+      context: .
+      dockerfile: Services/GrpcService/Management.gRPC/Dockerfile
+
+
+  ordering.grpc.stub:
+    image: ${DOCKER_REGISTRY-}orderinggrpcstub
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.gRPC/Dockerfile
+
+
+  ordering.grpc:
+    image: ${DOCKER_REGISTRY-}orderinggrpc
+    ports:
+     - 5004:80
+     - 5005:443
+    build:
+      context: .
+      dockerfile: Services/GrpcService/Ordering.gRPC/Dockerfile
+

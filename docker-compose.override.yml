@@ -1,0 +1,73 @@
+version: '3.4'
+
+services:
+  redisdb:
+    container_name: redisdb
+    restart: always
+    ports:
+      - "6379:6379"
+  
+  orderdb:
+    container_name: orderdb
+    environment:
+        SA_PASSWORD: "123456aA@"
+        ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+        - "1433:1433"
+
+  ocelotapigw:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5010:80"
+
+  cms.blazorserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "CacheSettings:ConnectionString=redisdb:6379"
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=123456aA@;"
+    ports:
+      - "4300:80"
+    depends_on:
+      - redisdb
+      - orderdb
+
+  management.grpc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "CacheSettings:ConnectionString=redisdb:6379"
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=123456aA@;"
+    depends_on:
+      - redisdb
+      - orderdb
+    ports:
+      - "5050:80"
+
+  ordering.grpc.stub:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=123456aA@;"
+    ports:
+      - "80"
+      - "5012:5012"
+      - "5013:443"
+    depends_on:
+      - orderdb
+
+
+  ordering.grpc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=123456aA@;"
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123456
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/Ordering.gRPC.pfx
+    depends_on:
+      - orderdb
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

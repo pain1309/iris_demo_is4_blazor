@@ -3,6 +3,7 @@ using Domain.Entities;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Ordering.gRPCClient;
 using System;
@@ -13,15 +14,19 @@ using static Ordering.gRPCClient.OrderingService;
 
 namespace Ordering.gRPC
 {
+    [Authorize]
     public class OrderingClientService : OrderingService.OrderingServiceBase
     {
         private readonly IOrderRepository _repository;
         private readonly ILogger<OrderingClientService> _logger;
         private readonly IMapper _mapper;
-        public OrderingClientService(ILogger<OrderingClientService> logger, IOrderRepository repository, IMapper mapper)
+        private readonly OrderingServiceClient _orderingServiceClient;
+
+        public OrderingClientService(ILogger<OrderingClientService> logger, IOrderRepository repository, IMapper mapper, OrderingServiceClient orderingServiceClient)
         {
             _logger = logger;
             _mapper = mapper;
+            _orderingServiceClient = orderingServiceClient;
             _repository = repository;
         }
 
@@ -37,9 +42,9 @@ namespace Ordering.gRPC
         {
             var createOrderingRequest = new GetProductRequest { ProductName = request.ProductName };
             //var replyModel = await _orderingServiceClient.GetProductsAsync(createOrderingRequest);
-            var channel = GrpcChannel.ForAddress("https://localhost:5005");
-            var client = new OrderingServiceClient(channel);
-            var response = await client.GetProductsAsync(createOrderingRequest);
+            //var channel = GrpcChannel.ForAddress("https://localhost:5005");
+            //var client = new OrderingServiceClient(channel);
+            var response = await _orderingServiceClient.GetProductsAsync(createOrderingRequest);
             
             return response;
         }
