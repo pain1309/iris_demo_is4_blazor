@@ -1,16 +1,33 @@
 ﻿@page "/counter"
 
-<h1>Counter</h1>
+@using Blazor.Wasm.BusinessClient.IndividualUserAccounts2.Models
+@using Syncfusion.Blazor.Buttons
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpClient Http
 
-<p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<AuthorizeView>
+    <Authorized>
+        The user is authorized
+        <SfButton @ref="ToggleBtn" @onclick="getIdentity" CssClass="e-flat" IsToggle="true" IsPrimary="true" Content="Get Current User"></SfButton>
+    </Authorized>
+    <NotAuthorized>
+        The User is not authorized
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
-    private int currentCount = 0;
 
-    private void IncrementCount()
+    public List<Ordering> Orderings { get; set; }
+    SfButton ToggleBtn;
+
+    private async Task getIdentity()
     {
-        currentCount++;
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+
+        string path = $"/Ordering/GetOrderByUserName/{user.Identity.Name}";
+        Orderings = (await Http.GetFromJsonAsync<OrderingResponse>(path)).Ordering.ToList();
     }
 }

@@ -1,7 +1,10 @@
+using Blazor.Wasm.BusinessClient.IndividualUserAccounts2.Handler;
+using Blazor.Wasm.BusinessClient.IndividualUserAccounts2.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -17,17 +20,25 @@ namespace Blazor.Wasm.BusinessClient.IndividualUserAccounts2
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTAwODIzQDMxMzkyZTMyMmUzMEJtL0NqNmdYRGVmU2pUMVVuaTRFektwWGV3VXFVbm0zNGl4WUF2SHprZnM9");
+            builder.Services.AddSyncfusionBlazor();
+            builder.Services.AddAuthorizationCore();
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5010/") });
-            //builder.Services.AddScoped<IOrderingService, OrderingService>();
+            builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
+
+            builder.Services.AddHttpClient("ServerAPI", client => client.BaseAddress = new Uri("http://localhost:5010"))
+               .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
+
+            builder.Services.AddTransient(sp =>
+                sp.GetRequiredService<IHttpClientFactory>().CreateClient("ServerAPI"));
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTAwODIzQDMxMzkyZTMyMmUzMEJtL0NqNmdYRGVmU2pUMVVuaTRFektwWGV3VXFVbm0zNGl4WUF2SHprZnM9");
+            builder.Services.AddScoped<IOrderingService, OrderingService>();
 
             builder.Services.AddOidcAuthentication(options =>
             {
-                // Configure your authentication provider options here.
-                // For more information, see https://aka.ms/blazor-standalone-auth
                 builder.Configuration.Bind("oidc", options.ProviderOptions);
             });
+
             await builder.Build().RunAsync();
         }
     }

@@ -50,11 +50,12 @@ namespace Ordering.gRPC
                 {
                     o.Authority = "https://localhost:5000";
                     o.RequireHttpsMetadata = false;
-                    o.Audience = "configServiceResource";
+                    o.Audience = "businessServiceResource";
                     o.TokenValidationParameters =
                     new TokenValidationParameters
                     {
                         RoleClaimType = "role",
+                        ValidateAudience = false
                     };
                 });
             services.AddCors(o => o.AddPolicy("AllowAll", builder => {
